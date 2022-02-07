@@ -1,0 +1,5 @@
+---
+- hosts: 10.18.45.101
+  remote_user: root
+  roles:
+    - wordpress

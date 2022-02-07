@@ -1,0 +1,43 @@
+- name: Lesson 1
+  hosts: test
+  become: yes
+
+  tasks:
+  - name: Add group
+    ansible.builtin.group:
+      name: '{{ usergroup }}'
+      state: present
+
+  - name: Add the user 'test'
+    ansible.builtin.user:
+      name: '{{ username }}'
+      group: '{{ usergroup }}'
+      password: '{{ userpass }}'
+
+  - name: Creates directory
+    file:
+      path: '/home/{{ username }}/{{ userdir }}'
+      state: directory
+
+  - name: Install some packets
+    yum:
+      name: '{{ item }}'
+      state: installed
+    loop:
+      - unzip
+      - telnet
+
+  - name: Download file
+    get_url:
+      url: https://nginx.org/keys/nginx_signing.key
+      dest: '/home/{{ username }}/'
+
+  - name: Install Nginx key
+    rpm_key:
+      key: https://nginx.org/keys/nginx_signing.key
+      state: present
+
+  - name: Install Nginx
+    dnf:
+      name: 'https://nginx.org/packages/centos/8/x86_64/RPMS/nginx-1.20.2-1.el8.ngx.x86_64.rpm'
+      state: present
