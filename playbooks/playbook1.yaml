@@ -1,0 +1,31 @@
+- name: Lesson 1
+  hosts: test
+  become: yes
+
+  tasks:
+  - name: Add the user 'test'
+    ansible.builtin.user:
+      name: {{ username }}
+      group: {{ usergroup }}
+      password: {{ userpass }}
+
+  - name: Creates directory
+    file:
+      path: /home/{{ username }}/{{ userdir }}
+      state: directory
+
+  - name: Install some packets
+    yum: 
+      name='{{ item }}'
+      state=installed
+    loop:
+      - unzip
+      - telnet
+
+  - name: Download file
+    get_url: url=https://nginx.org/keys/nginx_signing.key dest=/home/{{ username }}/
+
+  - name: Install Nginx
+    yum:
+      name=nginx
+      state=installed
