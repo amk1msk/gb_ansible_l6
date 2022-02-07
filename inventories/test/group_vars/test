@@ -1,0 +1,6 @@
+---
+username     : test
+usergroup    : test
+userpass     : test_pass
+userdir      : test_dir
+ansible_user : akalinin
