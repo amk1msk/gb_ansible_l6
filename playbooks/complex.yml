@@ -1,0 +1,8 @@
+- name: Nginx 
+  import_playbook: nginx.yml
+
+- name: Mysql
+  import_playbook: mysql.yml
+
+- name: Check
+  import_playbook: check.yml

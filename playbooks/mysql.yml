@@ -1,0 +1,6 @@
+- name: Install mysql package
+  package:
+    name: 
+      - mysql-server
+      - mysql-client
+

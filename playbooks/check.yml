@@ -1,0 +1,26 @@
+- name: Check Nginx
+  command: systemctl status nginx
+  register: nginx_status
+
+- debug:
+    var: nginx_status
+
+- name: Check Mysql
+  command: systemctl status mysql
+  register: mysql_status
+
+- debug:
+    var: mysql_status
+
+- name: Download file
+  get_url:
+    url: "https://{{ ansible_host }}:{{ nginx_port }}/index.html"
+    dest: '/home/{{ username }}/'
+
+- name: Check Nginx is responsing
+  uri:
+    url: "http://{{ ansible_host }}:{{ nginx_port }}"
+    method: GET
+    response_code: 200
+    timeout: 1
+
