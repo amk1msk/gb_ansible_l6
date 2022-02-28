@@ -23,4 +23,4 @@
     method: GET
     response_code: 200
     timeout: 1
-
+    delegate_to: 127.0.0.1

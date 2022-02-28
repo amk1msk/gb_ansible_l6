@@ -1,0 +1,3 @@
+- name: Some command
+  command: "/opt/app --pass={{ app.pass }} --secret= {{ app.secret }}"
+  no_log: debug_passwords | default('false') | bool
